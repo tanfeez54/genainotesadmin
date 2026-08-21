@@ -4,7 +4,12 @@ import { getCurrentAdmin, logAdminAction } from '@/lib/auth';
 import { sendSchoolOnboardingEmail } from '@/lib/email';
 import crypto from 'crypto';
 
-const SCHOOL_APP_URL = process.env.SCHOOL_APP_URL || 'http://localhost:3000';
+
+function getSchoolAppUrl(req: NextRequest): string {
+  if (process.env.SCHOOL_APP_URL) return process.env.SCHOOL_APP_URL.replace(/\/$/, '');
+  if (process.env.NEXT_PUBLIC_SCHOOL_APP_URL) return process.env.NEXT_PUBLIC_SCHOOL_APP_URL.replace(/\/$/, '');
+  return 'http://localhost:3000';
+}
 
 export async function GET(req: NextRequest) {
   const admin = await getCurrentAdmin();
@@ -125,8 +130,9 @@ export async function POST(req: NextRequest) {
         { onConflict: 'school_id,user_id' }
       );
 
-    // 4. Construct compact direct activation URL (~60 characters total)
-    const activationUrl = `${SCHOOL_APP_URL}/set-password?token=${shortToken}`;
+    // 4. Construct compact direct activation URL
+    const schoolAppUrl = getSchoolAppUrl(req);
+    const activationUrl = `${schoolAppUrl}/set-password?token=${shortToken}`;
 
     // 5. Send Onboarding Email with compact link
     await sendSchoolOnboardingEmail({
