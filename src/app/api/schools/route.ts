@@ -8,7 +8,7 @@ import crypto from 'crypto';
 function getSchoolAppUrl(req: NextRequest): string {
   if (process.env.SCHOOL_APP_URL) return process.env.SCHOOL_APP_URL.replace(/\/$/, '');
   if (process.env.NEXT_PUBLIC_SCHOOL_APP_URL) return process.env.NEXT_PUBLIC_SCHOOL_APP_URL.replace(/\/$/, '');
-  return 'http://localhost:3000';
+  return 'https://genainotesfe.vercel.app';
 }
 
 export async function GET(req: NextRequest) {
