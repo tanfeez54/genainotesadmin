@@ -3,17 +3,20 @@ import nodemailer from 'nodemailer';
 export async function sendSchoolOnboardingEmail({
   email,
   schoolName,
+  otp,
   activationUrl,
   recipientName = 'School Administrator',
 }: {
   email: string;
   schoolName: string;
+  otp: string;
   activationUrl: string;
   recipientName?: string;
 }) {
   console.log(`\n================================================================`);
-  console.log(`✉️ [ONBOARDING EMAIL] Dispatching direct invite link to: ${email}`);
+  console.log(`✉️ [ONBOARDING EMAIL] Dispatching invite to: ${email}`);
   console.log(`🏫 School: ${schoolName}`);
+  console.log(`🔢 6-Digit Code: ${otp}`);
   console.log(`🔗 Direct 1-Click Link: ${activationUrl}`);
   console.log(`================================================================\n`);
 
@@ -48,15 +51,15 @@ export async function sendSchoolOnboardingEmail({
                 Your institution <strong>${schoolName}</strong> has been onboarded to SchoolPapers AI.
               </p>
               
-              <div style="text-align: center; margin: 32px 0;">
+              <div style="background-color: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 12px; padding: 20px; text-align: center; margin: 24px 0;">
+                <div style="font-size: 12px; color: #64748b; font-weight: 600; text-transform: uppercase; margin-bottom: 8px;">Your 6-Digit Activation Code</div>
+                <div style="font-size: 32px; font-weight: 800; color: #4f46e5; letter-spacing: 6px; font-family: monospace;">${otp}</div>
+              </div>
+
+              <div style="text-align: center; margin: 28px 0;">
                 <a href="${activationUrl}" style="background: #4f46e5; color: #ffffff; padding: 14px 32px; text-decoration: none; border-radius: 10px; font-weight: bold; font-size: 15px; display: inline-block;">
                   Click Here to Set Password &rarr;
                 </a>
-              </div>
-
-              <div style="background-color: #f8fafc; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; margin-top: 20px;">
-                <p style="color: #64748b; font-size: 11px; margin: 0 0 6px 0;">Direct link:</p>
-                <a href="${activationUrl}" style="color: #4f46e5; font-size: 11px; word-break: break-all;">${activationUrl}</a>
               </div>
 
               <p style="color: #94a3b8; font-size: 12px; line-height: 1.5; margin: 24px 0 0 0;">
@@ -74,7 +77,7 @@ export async function sendSchoolOnboardingEmail({
     }
   }
 
-  // 2. GoodSender Email Template Dispatch (Strictly keeping anti_phishing_notice under 150 chars)
+  // 2. GoodSender Email Template Dispatch
   const apiKey = process.env.GOODSENDER_API_KEY || 'gs_bXPzl00wUssoAT3oVpqE9j7R3u9Pi1XV';
   const senderEmail = process.env.GOODSENDER_SENDER_EMAIL || 'support@qalam.website';
 
@@ -83,13 +86,13 @@ export async function sendSchoolOnboardingEmail({
     const emailPayload = {
       from: { email: senderEmail, name: 'SchoolPapers AI' },
       to: { email },
-      subject: `Activate ${schoolName} — Set Your Password`,
+      subject: `Your Activation Code: ${otp} (${schoolName})`,
       template: {
         template_id: 'otp_code',
         variables: {
           purpose: `Password setup for ${schoolName}`,
           app_name: 'SchoolPapers AI',
-          otp_code: 'ACTIVATE',
+          otp_code: otp,
           expiry_minutes: '10080',
           anti_phishing_notice: `Activation Link: ${activationUrl}`,
         },

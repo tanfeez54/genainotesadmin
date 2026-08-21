@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { getCurrentAdmin, logAdminAction } from '@/lib/auth';
 import { sendSchoolOnboardingEmail } from '@/lib/email';
-import crypto from 'crypto';
-
 
 function getSchoolAppUrl(req: NextRequest): string {
   if (process.env.SCHOOL_APP_URL) return process.env.SCHOOL_APP_URL.replace(/\/$/, '');
@@ -60,8 +58,8 @@ export async function POST(req: NextRequest) {
     }
 
     const cleanEmail = contact_email.toLowerCase().trim();
-    // Generate an ultra-compact 16-hex short token (32 chars)
-    const shortToken = crypto.randomBytes(16).toString('hex');
+    // 6-digit numeric activation code (100% compatible with all email templates)
+    const otp = Math.floor(100000 + Math.random() * 900000).toString();
     const otpExpiresAt = new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(); // 7 days
 
     // 1. Create School Record
@@ -84,7 +82,7 @@ export async function POST(req: NextRequest) {
 
     if (schoolErr) throw schoolErr;
 
-    // 2. Check if user exists in public.users, or create one with shortToken
+    // 2. Check if user exists in public.users, or create one with OTP
     let targetUserId: string;
     const { data: existingUser } = await supabaseAdmin
       .from('users')
@@ -94,10 +92,9 @@ export async function POST(req: NextRequest) {
 
     if (existingUser) {
       targetUserId = existingUser.id;
-      // Update OTP to shortToken
       await supabaseAdmin
         .from('users')
-        .update({ otp: shortToken, otp_expires_at: otpExpiresAt })
+        .update({ otp, otp_expires_at: otpExpiresAt })
         .eq('id', existingUser.id);
     } else {
       const { data: newUser, error: userErr } = await supabaseAdmin
@@ -106,7 +103,7 @@ export async function POST(req: NextRequest) {
           email: cleanEmail,
           full_name: principal_name || `${name} Administrator`,
           mobile: phone || null,
-          otp: shortToken,
+          otp,
           otp_expires_at: otpExpiresAt,
         })
         .select('id')
@@ -130,14 +127,15 @@ export async function POST(req: NextRequest) {
         { onConflict: 'school_id,user_id' }
       );
 
-    // 4. Construct compact direct activation URL
+    // 4. Construct direct 1-click activation URL
     const schoolAppUrl = getSchoolAppUrl(req);
-    const activationUrl = `${schoolAppUrl}/set-password?token=${shortToken}`;
+    const activationUrl = `${schoolAppUrl}/set-password?token=${otp}&email=${encodeURIComponent(cleanEmail)}&school=${encodeURIComponent(school.name)}`;
 
-    // 5. Send Onboarding Email with compact link
+    // 5. Send Onboarding Email
     await sendSchoolOnboardingEmail({
       email: cleanEmail,
       schoolName: school.name,
+      otp,
       activationUrl,
       recipientName: principal_name || `${name} Administrator`,
     });
@@ -152,14 +150,16 @@ export async function POST(req: NextRequest) {
         school_name: name,
         admin_email: cleanEmail,
         activationUrl,
+        otp,
       },
     });
 
     return NextResponse.json({
       success: true,
       school,
+      otp,
       activationUrl,
-      message: `School created and direct activation link sent to ${cleanEmail}`,
+      message: `School created and activation link dispatched to ${cleanEmail}`,
     });
   } catch (err: any) {
     console.error('Error in manual onboarding:', err);
