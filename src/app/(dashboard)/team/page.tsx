@@ -158,7 +158,7 @@ export default function PlatformTeamPage() {
       {/* Team Table */}
       <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs whitespace-nowrap">
             <thead className="bg-slate-900/60 border-b border-slate-800 text-slate-400 font-mono text-[11px] uppercase tracking-wider">
               <tr>
                 <th className="px-6 py-3.5">Admin Member</th>
@@ -244,7 +244,7 @@ export default function PlatformTeamPage() {
       {/* Add Admin Modal */}
       {showInviteModal && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
-          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4">
+          <div className="bg-[#0f172a] border border-slate-800 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4 max-h-[90vh] overflow-y-auto">
             <div className="flex items-center justify-between pb-3 border-b border-slate-800">
               <h2 className="text-base font-bold text-white flex items-center gap-2">
                 <UserPlus className="w-5 h-5 text-indigo-400" />

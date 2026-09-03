@@ -221,7 +221,7 @@ export default function RevenueDashboardPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-mono">
+          <table className="w-full text-left text-xs font-mono whitespace-nowrap">
             <thead className="bg-slate-900/60 border-b border-slate-800 text-slate-400 text-[11px] uppercase tracking-wider font-mono">
               <tr>
                 <th className="px-6 py-3.5">Invoice #</th>

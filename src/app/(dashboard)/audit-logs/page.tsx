@@ -38,7 +38,7 @@ export default function AuditLogsPage() {
 
       <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full text-left text-xs whitespace-nowrap">
             <thead className="bg-slate-900/60 border-b border-slate-800 text-slate-400 font-mono text-[11px] uppercase tracking-wider">
               <tr>
                 <th className="px-6 py-3.5">Timestamp</th>
