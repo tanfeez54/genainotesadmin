@@ -41,41 +41,45 @@ export default function SuperAdminLoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#090d16] flex flex-col items-center justify-center p-4 relative overflow-hidden">
-      {/* Background glow */}
-      <div className="absolute -top-40 -left-40 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-cyan-500/10 rounded-full blur-3xl pointer-events-none" />
+    <div className="min-h-screen bg-[#FFFDFB] flex flex-col items-center justify-center p-4 relative overflow-hidden font-sans">
+      {/* Decorative Jadoo warm gradient blobs */}
+      <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#DF6951]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#F1A501]/10 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-to-br from-[#DF6951]/5 to-[#F1A501]/5 rounded-full blur-3xl pointer-events-none" />
 
       <div className="w-full max-w-md relative z-10">
         {/* Brand Header */}
         <div className="text-center mb-8">
-          <div className="w-16 h-16 mx-auto rounded-2xl gradient-kavion flex items-center justify-center shadow-xl shadow-indigo-500/20 mb-4 ring-1 ring-white/20">
-            <ShieldCheck className="w-9 h-9 text-white" />
+          <div className="w-16 h-16 mx-auto rounded-3xl gradient-jadoo flex items-center justify-center shadow-xl shadow-[#DF6951]/25 mb-4 ring-4 ring-[#FFF1DA]">
+            <ShieldCheck className="w-8 h-8 text-white" />
           </div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center justify-center gap-2">
-            Kavion<span className="gradient-kavion-text">Question</span>
+          <span className="text-xs uppercase tracking-widest font-extrabold text-[#DF6951] bg-[#DF6951]/10 px-3.5 py-1 rounded-full">
+            Admin Console
+          </span>
+          <h1 className="text-3xl font-heading font-black text-[#181E4B] mt-2 tracking-tight">
+            NoteGen <span className="gradient-jadoo-text">Master</span>
           </h1>
-          <p className="text-xs text-slate-400 font-mono tracking-widest uppercase mt-1">Super Admin Console</p>
+          <p className="text-xs text-[#5E6282] mt-1 font-medium">Internal Super Admin Management Portal</p>
         </div>
 
         {/* Login Card */}
-        <div className="bg-[#0f172a]/90 backdrop-blur-xl border border-slate-800 rounded-2xl p-8 shadow-2xl shadow-black/50">
+        <div className="bg-white/95 backdrop-blur-xl border border-[rgba(24,30,75,0.08)] rounded-[32px] p-8 sm:p-10 shadow-[0_20px_60px_rgba(24,30,75,0.06)]">
           <div className="mb-6">
-            <h2 className="text-lg font-semibold text-white">Platform Sign In</h2>
-            <p className="text-xs text-slate-400 mt-1">Restricted area for platform operators only.</p>
+            <h2 className="text-xl font-heading font-bold text-[#181E4B]">Super Admin Sign In</h2>
+            <p className="text-xs text-[#5E6282] mt-1 font-medium">Restricted to authorized operators only.</p>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1.5">Admin Email</label>
+              <label className="block text-xs font-bold text-[#181E4B] uppercase tracking-wider mb-2">Admin Email</label>
               <div className="relative">
-                <Mail className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <Mail className="w-4 h-4 text-[#5E6282] absolute left-3.5 top-3.5" />
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="admin@kavionquestion.internal"
-                  className="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
+                  placeholder="admin@notegen.internal"
+                  className="w-full bg-[#FAF7F2] border border-[rgba(24,30,75,0.12)] rounded-2xl pl-10 pr-4 py-3 text-sm text-[#181E4B] placeholder:text-[#5E6282]/50 focus:outline-none focus:border-[#DF6951] focus:ring-4 focus:ring-[#DF6951]/10 transition-all font-medium"
                   required
                   autoFocus
                 />
@@ -83,15 +87,15 @@ export default function SuperAdminLoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-medium text-slate-300 mb-1.5">Security Password</label>
+              <label className="block text-xs font-bold text-[#181E4B] uppercase tracking-wider mb-2">Security Password</label>
               <div className="relative">
-                <Lock className="w-4 h-4 text-slate-400 absolute left-3.5 top-3" />
+                <Lock className="w-4 h-4 text-[#5E6282] absolute left-3.5 top-3.5" />
                 <input
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••••••"
-                  className="w-full bg-slate-900/90 border border-slate-700/80 rounded-xl pl-10 pr-4 py-2.5 text-sm text-slate-100 placeholder:text-slate-500 focus:outline-none focus:ring-2 focus:ring-indigo-500/50 focus:border-indigo-500 transition-all"
+                  className="w-full bg-[#FAF7F2] border border-[rgba(24,30,75,0.12)] rounded-2xl pl-10 pr-4 py-3 text-sm text-[#181E4B] placeholder:text-[#5E6282]/50 focus:outline-none focus:border-[#DF6951] focus:ring-4 focus:ring-[#DF6951]/10 transition-all font-medium"
                   required
                 />
               </div>
@@ -100,12 +104,12 @@ export default function SuperAdminLoginPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full mt-2 gradient-kavion text-white font-medium py-2.5 px-4 rounded-xl flex items-center justify-center gap-2 hover:opacity-95 transition-opacity shadow-lg shadow-indigo-500/20 disabled:opacity-50 text-sm cursor-pointer"
+              className="w-full mt-3 gradient-jadoo text-white font-bold py-3.5 px-4 rounded-2xl flex items-center justify-center gap-2 hover:opacity-95 transition-all shadow-lg shadow-[#DF6951]/25 disabled:opacity-50 text-sm cursor-pointer"
             >
               {isLoading ? (
                 <>
                   <Loader2 className="w-4 h-4 animate-spin" />
-                  Verifying...
+                  Authenticating...
                 </>
               ) : (
                 <>
@@ -116,9 +120,9 @@ export default function SuperAdminLoginPage() {
             </button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-slate-800/80 text-center">
-            <p className="text-[11px] text-slate-500 font-mono">
-              🛡️ All sessions are encrypted & audited
+          <div className="mt-6 pt-5 border-t border-[rgba(24,30,75,0.06)] text-center">
+            <p className="text-[11px] text-[#5E6282] font-medium flex items-center justify-center gap-1.5">
+              <span>🛡️</span> Multi-Tenant Encrypted Session & Audit Trail
             </p>
           </div>
         </div>

@@ -9,20 +9,15 @@ import {
   ShieldAlert,
   ShieldCheck,
   Users,
-  Layers,
-  FileSpreadsheet,
-  ScanText,
   Mail,
   Phone,
-  Calendar,
   Sparkles,
-  CheckCircle2,
-  AlertCircle,
   Loader2,
   DollarSign,
   CreditCard,
-  Clock,
   ChevronRight,
+  FileSpreadsheet,
+  ScanText,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
@@ -167,8 +162,8 @@ export default function SchoolDetailPage() {
   if (isLoading) {
     return (
       <div className="space-y-6 max-w-7xl mx-auto animate-pulse">
-        <div className="h-6 w-32 bg-slate-800 rounded" />
-        <div className="h-40 bg-slate-800/60 rounded-2xl" />
+        <div className="h-6 w-32 bg-slate-200 rounded-xl" />
+        <div className="h-44 bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl" />
       </div>
     );
   }
@@ -180,48 +175,48 @@ export default function SchoolDetailPage() {
       {/* Back Link */}
       <Link
         href="/schools"
-        className="inline-flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors"
+        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#5E6282] hover:text-[#DF6951] transition-colors"
       >
         <ArrowLeft className="w-3.5 h-3.5" /> Back to Schools
       </Link>
 
       {/* Header Banner */}
-      <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/20 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 sm:p-8 shadow-[0_10px_30px_rgba(24,30,75,0.04)] flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex items-start gap-4">
-          <div className="w-16 h-16 rounded-2xl bg-slate-900 border border-slate-700/80 flex items-center justify-center p-2 flex-shrink-0">
+          <div className="w-16 h-16 rounded-2xl bg-[#FAF7F2] border border-[rgba(24,30,75,0.08)] flex items-center justify-center p-2 shrink-0 shadow-xs">
             {school.logo_url ? (
               <img src={school.logo_url} alt="Logo" className="w-full h-full object-contain" />
             ) : (
-              <Building2 className="w-8 h-8 text-indigo-400" />
+              <Building2 className="w-8 h-8 text-[#DF6951]" />
             )}
           </div>
           <div>
-            <div className="flex items-center gap-3">
-              <h1 className="text-xl font-bold text-white">{school.name}</h1>
+            <div className="flex flex-wrap items-center gap-2.5">
+              <h1 className="text-2xl font-heading font-black text-[#181E4B]">{school.name}</h1>
               <span
-                className={`text-[10px] font-mono px-2.5 py-0.5 rounded-full ${
+                className={`text-[10px] font-bold px-3 py-1 rounded-full ${
                   school.is_active
-                    ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                    : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                    ? 'bg-[#00A389]/10 text-[#00A389]'
+                    : 'bg-red-500/10 text-red-500'
                 }`}
               >
                 {school.is_active ? 'Active Tenant' : 'Suspended'}
               </span>
-              <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 uppercase">
+              <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-[#FFF1DA] text-[#DF6951] uppercase">
                 {school.subscription_status || 'Trial'}
               </span>
             </div>
-            <div className="flex flex-wrap items-center gap-4 text-xs text-slate-400 mt-2">
-              <span className="flex items-center gap-1">
-                <Mail className="w-3.5 h-3.5 text-slate-500" /> {school.contact_email}
+            <div className="flex flex-wrap items-center gap-4 text-xs text-[#5E6282] mt-2 font-medium">
+              <span className="flex items-center gap-1.5">
+                <Mail className="w-3.5 h-3.5 text-[#DF6951]" /> {school.contact_email}
               </span>
               {school.phone && (
-                <span className="flex items-center gap-1">
-                  <Phone className="w-3.5 h-3.5 text-slate-500" /> {school.phone}
+                <span className="flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-[#DF6951]" /> {school.phone}
                 </span>
               )}
               {school.board && (
-                <span className="font-mono bg-slate-800 text-slate-300 px-2 py-0.5 rounded text-[10px]">
+                <span className="font-bold bg-[#FAF7F2] text-[#181E4B] border border-[rgba(24,30,75,0.08)] px-2.5 py-0.5 rounded-full text-[10px]">
                   {school.board}
                 </span>
               )}
@@ -234,7 +229,7 @@ export default function SchoolDetailPage() {
           <button
             onClick={handleImpersonate}
             disabled={isUpdating}
-            className="px-4 py-2 rounded-xl text-xs font-semibold bg-indigo-600 hover:bg-indigo-500 text-white shadow-md flex items-center gap-2 transition-all cursor-pointer"
+            className="px-4 py-2.5 rounded-2xl text-xs font-bold gradient-jadoo text-white shadow-md shadow-[#DF6951]/25 flex items-center gap-2 hover:opacity-95 transition-all cursor-pointer"
           >
             <Sparkles className="w-4 h-4" />
             Impersonate (Support Session)
@@ -243,10 +238,10 @@ export default function SchoolDetailPage() {
           <button
             onClick={toggleStatus}
             disabled={isUpdating}
-            className={`px-4 py-2 rounded-xl text-xs font-semibold flex items-center gap-2 transition-all cursor-pointer ${
+            className={`px-4 py-2.5 rounded-2xl text-xs font-bold flex items-center gap-2 transition-all cursor-pointer ${
               school.is_active
-                ? 'bg-red-500/10 text-red-400 border border-red-500/20 hover:bg-red-500/20'
-                : 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/20'
+                ? 'bg-red-50 text-red-600 border border-red-200 hover:bg-red-100'
+                : 'bg-emerald-50 text-emerald-600 border border-emerald-200 hover:bg-emerald-100'
             }`}
           >
             {isUpdating ? (
@@ -263,113 +258,111 @@ export default function SchoolDetailPage() {
 
       {/* KPI Stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        <div className="bg-[#0f172a]/90 border border-slate-800 p-4 rounded-xl">
-          <div className="text-xs text-slate-400">Questions in Bank</div>
-          <div className="text-2xl font-bold text-white mt-1">{stats.totalQuestions}</div>
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] p-5 rounded-3xl shadow-xs">
+          <div className="text-xs font-bold uppercase tracking-wider text-[#5E6282]">Questions in Bank</div>
+          <div className="text-3xl font-heading font-black text-[#181E4B] mt-1">{stats?.totalQuestions || 0}</div>
         </div>
-        <div className="bg-[#0f172a]/90 border border-slate-800 p-4 rounded-xl">
-          <div className="text-xs text-slate-400">Papers Generated</div>
-          <div className="text-2xl font-bold text-white mt-1">{stats.totalPapers}</div>
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] p-5 rounded-3xl shadow-xs">
+          <div className="text-xs font-bold uppercase tracking-wider text-[#5E6282]">Papers Generated</div>
+          <div className="text-3xl font-heading font-black text-[#181E4B] mt-1">{stats?.totalPapers || 0}</div>
         </div>
-        <div className="bg-[#0f172a]/90 border border-slate-800 p-4 rounded-xl">
-          <div className="text-xs text-slate-400">Registered Classes</div>
-          <div className="text-2xl font-bold text-white mt-1">{classes.length}</div>
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] p-5 rounded-3xl shadow-xs">
+          <div className="text-xs font-bold uppercase tracking-wider text-[#5E6282]">Registered Classes</div>
+          <div className="text-3xl font-heading font-black text-[#181E4B] mt-1">{classes?.length || 0}</div>
         </div>
-        <div className="bg-[#0f172a]/90 border border-slate-800 p-4 rounded-xl">
-          <div className="text-xs text-slate-400">Staff Members</div>
-          <div className="text-2xl font-bold text-white mt-1">{users.length}</div>
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] p-5 rounded-3xl shadow-xs">
+          <div className="text-xs font-bold uppercase tracking-wider text-[#5E6282]">Staff Members</div>
+          <div className="text-3xl font-heading font-black text-[#181E4B] mt-1">{users?.length || 0}</div>
         </div>
       </div>
 
       {/* Section Navigation Tabs */}
-      <div className="flex border-b border-slate-800 text-xs font-semibold">
+      <div className="flex border-b border-[rgba(24,30,75,0.08)] text-xs font-bold gap-2 overflow-x-auto">
         <button
           onClick={() => setActiveTab('overview')}
-          className={`pb-3 px-4 -mb-px transition-colors cursor-pointer ${
+          className={`pb-3 px-4 -mb-px transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'overview'
-              ? 'border-b-2 border-indigo-500 text-indigo-400'
-              : 'text-slate-400 hover:text-slate-200'
+              ? 'border-b-2 border-[#DF6951] text-[#DF6951]'
+              : 'text-[#5E6282] hover:text-[#181E4B]'
           }`}
         >
-          Overview & Branding
+          Overview &amp; Branding
         </button>
         <button
           onClick={() => setActiveTab('billing')}
-          className={`pb-3 px-4 -mb-px transition-colors cursor-pointer ${
+          className={`pb-3 px-4 -mb-px transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'billing'
-              ? 'border-b-2 border-indigo-500 text-indigo-400'
-              : 'text-slate-400 hover:text-slate-200'
+              ? 'border-b-2 border-[#DF6951] text-[#DF6951]'
+              : 'text-[#5E6282] hover:text-[#181E4B]'
           }`}
         >
-          Subscription & Billing
+          Subscription &amp; Billing
         </button>
         <button
           onClick={() => setActiveTab('staff')}
-          className={`pb-3 px-4 -mb-px transition-colors cursor-pointer ${
+          className={`pb-3 px-4 -mb-px transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'staff'
-              ? 'border-b-2 border-indigo-500 text-indigo-400'
-              : 'text-slate-400 hover:text-slate-200'
+              ? 'border-b-2 border-[#DF6951] text-[#DF6951]'
+              : 'text-[#5E6282] hover:text-[#181E4B]'
           }`}
         >
-          Staff & Teachers ({users.length})
+          Staff &amp; Teachers ({users?.length || 0})
         </button>
         <button
           onClick={() => setActiveTab('scans')}
-          className={`pb-3 px-4 -mb-px transition-colors cursor-pointer ${
+          className={`pb-3 px-4 -mb-px transition-all cursor-pointer whitespace-nowrap ${
             activeTab === 'scans'
-              ? 'border-b-2 border-indigo-500 text-indigo-400'
-              : 'text-slate-400 hover:text-slate-200'
+              ? 'border-b-2 border-[#DF6951] text-[#DF6951]'
+              : 'text-[#5E6282] hover:text-[#181E4B]'
           }`}
         >
-          Scans History ({scans.length})
+          Scans History ({scans?.length || 0})
         </button>
       </div>
 
       {/* Tab: Overview & Branding */}
       {activeTab === 'overview' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          {/* Details */}
-          <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-            <h2 className="text-sm font-semibold text-white">Academic Details</h2>
-            <div className="space-y-2.5 text-xs">
-              <div className="flex justify-between py-2 border-b border-slate-800">
-                <span className="text-slate-400">Board</span>
-                <span className="text-white font-medium">{school.board || 'CBSE'}</span>
+          <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 sm:p-7 shadow-[0_10px_30px_rgba(24,30,75,0.04)] space-y-4">
+            <h2 className="text-base font-heading font-bold text-[#181E4B]">Academic Details</h2>
+            <div className="space-y-3 text-xs">
+              <div className="flex justify-between py-2 border-b border-[rgba(24,30,75,0.06)]">
+                <span className="text-[#5E6282]">Board</span>
+                <span className="text-[#181E4B] font-bold">{school.board || 'CBSE'}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-slate-800">
-                <span className="text-slate-400">Classes Range</span>
-                <span className="text-white font-medium">{school.classes_range || 'Nursery - 10th'}</span>
+              <div className="flex justify-between py-2 border-b border-[rgba(24,30,75,0.06)]">
+                <span className="text-[#5E6282]">Classes Range</span>
+                <span className="text-[#181E4B] font-bold">{school.classes_range || 'Nursery - 10th'}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-slate-800">
-                <span className="text-slate-400">Address</span>
-                <span className="text-white font-medium">{school.address || 'N/A'}</span>
+              <div className="flex justify-between py-2 border-b border-[rgba(24,30,75,0.06)]">
+                <span className="text-[#5E6282]">Address</span>
+                <span className="text-[#181E4B] font-bold">{school.address || 'N/A'}</span>
               </div>
-              <div className="flex justify-between py-2 border-b border-slate-800">
-                <span className="text-slate-400">Created At</span>
-                <span className="text-slate-300 font-mono">{new Date(school.created_at).toLocaleString()}</span>
+              <div className="flex justify-between py-2 border-b border-[rgba(24,30,75,0.06)]">
+                <span className="text-[#5E6282]">Created At</span>
+                <span className="text-[#181E4B] font-medium">{new Date(school.created_at).toLocaleString()}</span>
               </div>
             </div>
           </div>
 
-          {/* Official Branding Assets */}
-          <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl">
-            <h2 className="text-sm font-semibold text-white mb-4">Official Print Assets (Watermark)</h2>
+          <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 sm:p-7 shadow-[0_10px_30px_rgba(24,30,75,0.04)]">
+            <h2 className="text-base font-heading font-bold text-[#181E4B] mb-4">Official Print Assets (Watermark)</h2>
             <div className="grid grid-cols-2 gap-4 text-xs">
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-                <span className="text-[11px] text-slate-400 mb-2">School Stamp</span>
+              <div className="bg-[#FAF7F2] border border-[rgba(24,30,75,0.08)] rounded-2xl p-4 flex flex-col items-center justify-center text-center">
+                <span className="text-[11px] font-bold text-[#5E6282] uppercase tracking-wider mb-2">School Stamp</span>
                 {school.stamp_url ? (
                   <img src={school.stamp_url} alt="Stamp" className="h-20 object-contain rounded" />
                 ) : (
-                  <span className="text-slate-600 font-mono text-xs py-4">No stamp uploaded</span>
+                  <span className="text-[#5E6282] font-medium text-xs py-4">No stamp uploaded</span>
                 )}
               </div>
 
-              <div className="bg-slate-900/60 border border-slate-800 rounded-xl p-4 flex flex-col items-center justify-center text-center">
-                <span className="text-[11px] text-slate-400 mb-2">Principal Signature</span>
+              <div className="bg-[#FAF7F2] border border-[rgba(24,30,75,0.08)] rounded-2xl p-4 flex flex-col items-center justify-center text-center">
+                <span className="text-[11px] font-bold text-[#5E6282] uppercase tracking-wider mb-2">Principal Signature</span>
                 {school.signature_url ? (
                   <img src={school.signature_url} alt="Signature" className="h-20 object-contain rounded" />
                 ) : (
-                  <span className="text-slate-600 font-mono text-xs py-4">No signature uploaded</span>
+                  <span className="text-[#5E6282] font-medium text-xs py-4">No signature uploaded</span>
                 )}
               </div>
             </div>
@@ -382,19 +375,19 @@ export default function SchoolDetailPage() {
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Current Plan & Tier Assignment */}
-            <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-              <h2 className="text-sm font-semibold text-white flex items-center gap-2">
-                <CreditCard className="w-4 h-4 text-indigo-400" />
+            <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 sm:p-7 shadow-[0_10px_30px_rgba(24,30,75,0.04)] space-y-4">
+              <h2 className="text-base font-heading font-bold text-[#181E4B] flex items-center gap-2">
+                <CreditCard className="w-5 h-5 text-[#DF6951]" />
                 Subscription Plan Management
               </h2>
 
-              <div className="space-y-3 text-xs">
+              <div className="space-y-3.5 text-xs">
                 <div>
-                  <label className="text-slate-400 block mb-1">Assign Plan Tier</label>
+                  <label className="text-[#181E4B] font-bold uppercase tracking-wider block mb-1.5">Assign Plan Tier</label>
                   <select
                     value={school.plan_id || ''}
                     onChange={(e) => handleUpdatePlan(e.target.value)}
-                    className="w-full bg-slate-900 border border-slate-700 rounded-xl px-3 py-2 text-white focus:outline-none focus:ring-1 focus:ring-indigo-500 cursor-pointer"
+                    className="w-full bg-[#FAF7F2] border border-[rgba(24,30,75,0.12)] rounded-2xl px-4 py-2.5 text-[#181E4B] font-bold focus:outline-none focus:border-[#DF6951] focus:ring-4 focus:ring-[#DF6951]/10 cursor-pointer"
                   >
                     <option value="">-- No Active Plan --</option>
                     {plans?.map((p: any) => (
@@ -405,17 +398,17 @@ export default function SchoolDetailPage() {
                   </select>
                 </div>
 
-                <div className="flex items-center justify-between pt-2 border-t border-slate-800">
+                <div className="flex items-center justify-between pt-3 border-t border-[rgba(24,30,75,0.06)]">
                   <div>
-                    <div className="text-slate-400">Trial Expiration</div>
-                    <div className="text-slate-200 font-mono text-[11px] mt-0.5">
+                    <div className="text-[#5E6282] font-medium">Trial Expiration</div>
+                    <div className="text-[#181E4B] font-bold text-xs mt-0.5">
                       {school.trial_ends_at ? new Date(school.trial_ends_at).toLocaleDateString() : 'N/A'}
                     </div>
                   </div>
                   <button
                     onClick={handleExtendTrial}
                     disabled={isUpdating}
-                    className="px-3 py-1.5 rounded-lg bg-indigo-600/20 hover:bg-indigo-600/30 text-indigo-300 border border-indigo-500/30 text-[11px] font-medium transition-colors cursor-pointer"
+                    className="px-4 py-2 rounded-xl bg-[#FFF1DA] hover:bg-[#FFE6BE] text-[#DF6951] text-xs font-bold transition-all cursor-pointer"
                   >
                     + Extend Trial 14 Days
                   </button>
@@ -424,39 +417,39 @@ export default function SchoolDetailPage() {
             </div>
 
             {/* Generation Wallet & Usage Card */}
-            <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-              <h2 className="text-sm font-semibold text-white flex items-center justify-between">
+            <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 sm:p-7 shadow-[0_10px_30px_rgba(24,30,75,0.04)] space-y-4">
+              <h2 className="text-base font-heading font-bold text-[#181E4B] flex items-center justify-between">
                 <span className="flex items-center gap-2">
-                  <CreditCard className="w-4 h-4 text-emerald-400" />
-                  Generation Wallet & Usage
+                  <CreditCard className="w-5 h-5 text-[#00A389]" />
+                  Generation Wallet &amp; Usage
                 </span>
-                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono">
-                  ₹5 / gen
+                <span className="text-xs px-3 py-1 rounded-full bg-[#00A389]/10 text-[#00A389] font-bold">
+                  ₹5 / paper
                 </span>
               </h2>
 
               <div className="grid grid-cols-3 gap-3">
-                <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block uppercase">Wallet Balance</span>
-                  <span className="text-xl font-bold font-mono text-emerald-400">
+                <div className="p-4 bg-[#FAF7F2] rounded-2xl border border-[rgba(24,30,75,0.06)]">
+                  <span className="text-[10px] text-[#5E6282] block font-bold uppercase tracking-wider">Wallet Balance</span>
+                  <span className="text-2xl font-heading font-black text-[#00A389] mt-1 block">
                     ₹{Number(school.wallet_balance || 0).toFixed(2)}
                   </span>
                 </div>
-                <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block uppercase">Generations Left</span>
-                  <span className="text-xl font-bold font-mono text-white">
+                <div className="p-4 bg-[#FAF7F2] rounded-2xl border border-[rgba(24,30,75,0.06)]">
+                  <span className="text-[10px] text-[#5E6282] block font-bold uppercase tracking-wider">Generations Left</span>
+                  <span className="text-2xl font-heading font-black text-[#181E4B] mt-1 block">
                     {Math.floor(Number(school.wallet_balance || 0) / Number(school.cost_per_generation || 5))}
                   </span>
                 </div>
-                <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
-                  <span className="text-[10px] text-slate-400 block uppercase">Used Papers</span>
-                  <span className="text-xl font-bold font-mono text-indigo-300">
+                <div className="p-4 bg-[#FAF7F2] rounded-2xl border border-[rgba(24,30,75,0.06)]">
+                  <span className="text-[10px] text-[#5E6282] block font-bold uppercase tracking-wider">Used Papers</span>
+                  <span className="text-2xl font-heading font-black text-[#DF6951] mt-1 block">
                     {school.generations_used || 0}
                   </span>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 pt-2 border-t border-slate-800">
+              <div className="flex items-center gap-2 pt-3 border-t border-[rgba(24,30,75,0.06)]">
                 <button
                   type="button"
                   onClick={async () => {
@@ -478,7 +471,7 @@ export default function SchoolDetailPage() {
                       toast.error('Failed to add credits');
                     }
                   }}
-                  className="w-full py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold transition-colors cursor-pointer"
+                  className="w-full py-2.5 rounded-2xl bg-[#00A389]/10 hover:bg-[#00A389]/20 text-[#00A389] text-xs font-bold transition-colors cursor-pointer"
                 >
                   + Grant Bonus Credits (₹)
                 </button>
@@ -486,29 +479,29 @@ export default function SchoolDetailPage() {
             </div>
 
             {/* Invoices List */}
-            <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
-              <h2 className="text-sm font-semibold text-white flex items-center gap-2">
-                <DollarSign className="w-4 h-4 text-emerald-400" />
+            <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 sm:p-7 shadow-[0_10px_30px_rgba(24,30,75,0.04)] space-y-4 md:col-span-2">
+              <h2 className="text-base font-heading font-bold text-[#181E4B] flex items-center gap-2">
+                <DollarSign className="w-5 h-5 text-[#DF6951]" />
                 School Invoices ({invoices?.length || 0})
               </h2>
 
-              <div className="space-y-2 max-h-60 overflow-y-auto">
+              <div className="space-y-2.5 max-h-60 overflow-y-auto">
                 {(!invoices || invoices.length === 0) ? (
-                  <p className="text-xs text-slate-500 py-6 text-center">No invoices issued for this school yet.</p>
+                  <p className="text-xs text-[#5E6282] py-6 text-center font-medium">No invoices issued for this school yet.</p>
                 ) : (
                   invoices.map((inv: any) => (
                     <div
                       key={inv.id}
-                      className="p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs flex items-center justify-between"
+                      className="p-4 rounded-2xl bg-[#FAF7F2] border border-[rgba(24,30,75,0.06)] text-xs flex items-center justify-between"
                     >
                       <div>
-                        <div className="font-mono text-slate-300">₹{Number(inv.amount).toLocaleString('en-IN')}</div>
-                        <div className="text-[10px] text-slate-500">{new Date(inv.created_at).toLocaleDateString()}</div>
+                        <div className="font-bold text-[#181E4B]">₹{Number(inv.amount).toLocaleString('en-IN')}</div>
+                        <div className="text-[10px] text-[#5E6282] mt-0.5">{new Date(inv.created_at).toLocaleDateString()}</div>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-2.5">
                         <span
-                          className={`text-[10px] px-2 py-0.5 rounded capitalize font-mono ${
-                            inv.status === 'paid' ? 'bg-emerald-500/10 text-emerald-400' : 'bg-amber-500/10 text-amber-400'
+                          className={`text-[10px] px-3 py-1 rounded-full font-bold capitalize ${
+                            inv.status === 'paid' ? 'bg-[#00A389]/10 text-[#00A389]' : 'bg-[#F1A501]/10 text-[#F1A501]'
                           }`}
                         >
                           {inv.status}
@@ -516,7 +509,7 @@ export default function SchoolDetailPage() {
                         {inv.status !== 'paid' && (
                           <button
                             onClick={() => handleMarkInvoicePaid(inv.id)}
-                            className="px-2 py-0.5 rounded bg-emerald-600 text-white text-[10px] hover:bg-emerald-500 cursor-pointer"
+                            className="px-3 py-1 rounded-xl bg-[#00A389] text-white text-[11px] font-bold hover:opacity-90 cursor-pointer shadow-xs"
                           >
                             Mark Paid
                           </button>
@@ -533,26 +526,26 @@ export default function SchoolDetailPage() {
 
       {/* Tab: Staff & Teachers */}
       {activeTab === 'staff' && (
-        <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/20">
-          <h2 className="text-sm font-semibold text-white flex items-center gap-2 mb-4">
-            <Users className="w-4 h-4 text-indigo-400" />
-            Registered Staff & Roles ({users.length})
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 sm:p-7 shadow-[0_10px_30px_rgba(24,30,75,0.04)]">
+          <h2 className="text-base font-heading font-bold text-[#181E4B] flex items-center gap-2 mb-4">
+            <Users className="w-5 h-5 text-[#DF6951]" />
+            Registered Staff &amp; Roles ({users?.length || 0})
           </h2>
 
-          <div className="space-y-2">
-            {users.length === 0 ? (
-              <p className="text-xs text-slate-500 py-8 text-center">No users registered under this school.</p>
+          <div className="space-y-2.5">
+            {(!users || users.length === 0) ? (
+              <p className="text-xs text-[#5E6282] py-8 text-center font-medium">No users registered under this school.</p>
             ) : (
               users.map((u: any) => (
                 <div
                   key={u.id}
-                  className="flex items-center justify-between p-3.5 rounded-xl bg-slate-900/60 border border-slate-800 text-xs"
+                  className="flex items-center justify-between p-4 rounded-2xl bg-[#FAF7F2] border border-[rgba(24,30,75,0.06)] text-xs"
                 >
                   <div>
-                    <div className="font-medium text-slate-200">{u.full_name || 'Staff User'}</div>
-                    <div className="text-[11px] text-slate-500 font-mono">{u.users?.email || 'N/A'}</div>
+                    <div className="font-bold text-[#181E4B]">{u.full_name || 'Staff User'}</div>
+                    <div className="text-[11px] text-[#5E6282] mt-0.5">{u.users?.email || 'N/A'}</div>
                   </div>
-                  <span className="font-mono text-[10px] uppercase px-2.5 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                  <span className="text-[10px] font-bold uppercase px-3 py-1 rounded-full bg-[#FFF1DA] text-[#DF6951]">
                     {u.role?.replace('_', ' ')}
                   </span>
                 </div>
@@ -564,28 +557,28 @@ export default function SchoolDetailPage() {
 
       {/* Tab: Scans History */}
       {activeTab === 'scans' && (
-        <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl shadow-black/20">
-          <h2 className="text-sm font-semibold text-white mb-4">Recent OCR Invocations ({scans.length})</h2>
-          <div className="space-y-2">
-            {scans.length === 0 ? (
-              <p className="text-xs text-slate-500 py-8 text-center">No scans recorded yet for this school.</p>
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 sm:p-7 shadow-[0_10px_30px_rgba(24,30,75,0.04)]">
+          <h2 className="text-base font-heading font-bold text-[#181E4B] mb-4">Recent OCR Invocations ({scans?.length || 0})</h2>
+          <div className="space-y-2.5">
+            {(!scans || scans.length === 0) ? (
+              <p className="text-xs text-[#5E6282] py-8 text-center font-medium">No scans recorded yet for this school.</p>
             ) : (
               scans.map((s: any) => (
                 <div
                   key={s.id}
-                  className="flex items-center justify-between p-3 rounded-xl bg-slate-900/60 border border-slate-800 text-xs font-mono"
+                  className="flex items-center justify-between p-4 rounded-2xl bg-[#FAF7F2] border border-[rgba(24,30,75,0.06)] text-xs"
                 >
                   <div>
-                    <span className="text-slate-300 capitalize">{s.doc_type?.replace('_', ' ')}</span>
-                    <span className="text-[10px] text-slate-500 ml-3">{new Date(s.created_at).toLocaleString()}</span>
+                    <span className="font-bold text-[#181E4B] capitalize">{s.doc_type?.replace('_', ' ')}</span>
+                    <span className="text-[11px] text-[#5E6282] ml-3">{new Date(s.created_at).toLocaleString()}</span>
                   </div>
                   <span
-                    className={`text-[10px] px-2 py-0.5 rounded capitalize ${
+                    className={`text-[10px] px-3 py-1 rounded-full font-bold capitalize ${
                       s.status === 'ocr_completed' || s.status === 'reviewed'
-                        ? 'bg-emerald-500/10 text-emerald-400'
+                        ? 'bg-[#00A389]/10 text-[#00A389]'
                         : s.status === 'failed'
-                        ? 'bg-red-500/10 text-red-400'
-                        : 'bg-indigo-500/10 text-indigo-400'
+                        ? 'bg-red-500/10 text-red-500'
+                        : 'bg-[#5956E9]/10 text-[#5956E9]'
                     }`}
                   >
                     {s.status}

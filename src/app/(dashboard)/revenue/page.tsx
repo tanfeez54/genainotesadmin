@@ -6,12 +6,7 @@ import {
   TrendingUp,
   CreditCard,
   AlertTriangle,
-  CheckCircle2,
-  Clock,
-  Plus,
   RefreshCw,
-  Search,
-  Building2,
   FileText,
 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -60,10 +55,10 @@ export default function RevenueDashboardPage() {
   if (isLoading) {
     return (
       <div className="space-y-6 max-w-7xl mx-auto animate-pulse">
-        <div className="h-8 w-64 bg-slate-800 rounded" />
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="h-8 w-64 bg-slate-200/70 rounded-2xl" />
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
           {[1, 2, 3, 4].map((i) => (
-            <div key={i} className="h-28 bg-slate-800/60 rounded-2xl" />
+            <div key={i} className="h-32 bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl" />
           ))}
         </div>
       </div>
@@ -82,86 +77,88 @@ export default function RevenueDashboardPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold tracking-tight text-white flex items-center gap-2.5">
-            Revenue & Subscription Billing
-            <span className="text-xs px-2.5 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 font-mono">
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-3xl font-heading font-black text-[#181E4B] tracking-tight">
+              Revenue &amp; Subscription Billing
+            </h1>
+            <span className="text-xs px-3 py-1 rounded-full bg-[#00A389]/10 text-[#00A389] font-extrabold">
               Live MRR
             </span>
-          </h1>
-          <p className="text-xs text-slate-400 mt-1">
+          </div>
+          <p className="text-xs text-[#5E6282] mt-1 font-medium">
             Track Monthly Recurring Revenue (MRR), subscription conversions, and invoice settlements.
           </p>
         </div>
 
         <button
           onClick={fetchRevenue}
-          className="px-3.5 py-2 rounded-xl text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 flex items-center gap-1.5 transition-colors self-start cursor-pointer"
+          className="px-4 py-2.5 rounded-2xl text-xs font-bold bg-white text-[#181E4B] border border-[rgba(24,30,75,0.12)] hover:bg-[#FAF7F2] flex items-center gap-2 shadow-xs transition-all self-start cursor-pointer"
         >
-          <RefreshCw className="w-3.5 h-3.5" />
+          <RefreshCw className="w-3.5 h-3.5 text-[#DF6951]" />
           Refresh
         </button>
       </div>
 
       {/* KPI Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
         {/* MRR */}
-        <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-5 shadow-lg shadow-black/20">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-medium text-slate-400">Monthly Recurring Revenue</span>
-            <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center text-emerald-400">
-              <DollarSign className="w-4 h-4" />
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 shadow-[0_10px_30px_rgba(24,30,75,0.04)]">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#5E6282]">Monthly Recurring</span>
+            <div className="w-10 h-10 rounded-2xl bg-[#00A389]/10 flex items-center justify-center text-[#00A389]">
+              <DollarSign className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl font-bold text-emerald-400 font-mono">
+          <div className="text-3xl font-heading font-black text-[#00A389]">
             ₹{metrics.mrr?.toLocaleString('en-IN') || 0}
           </div>
-          <div className="text-[11px] text-slate-500 mt-2 font-mono">
+          <div className="text-xs text-[#5E6282] mt-2 font-medium">
             ARR: ₹{(metrics.arr || 0).toLocaleString('en-IN')}
           </div>
         </div>
 
         {/* Active Paid Subscribers */}
-        <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-5 shadow-lg shadow-black/20">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-medium text-slate-400">Active Paid Schools</span>
-            <div className="w-8 h-8 rounded-lg bg-indigo-500/10 flex items-center justify-center text-indigo-400">
-              <CreditCard className="w-4 h-4" />
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 shadow-[0_10px_30px_rgba(24,30,75,0.04)]">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#5E6282]">Active Paid Schools</span>
+            <div className="w-10 h-10 rounded-2xl bg-[#DF6951]/10 flex items-center justify-center text-[#DF6951]">
+              <CreditCard className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl font-bold text-white font-mono">{metrics.activeSubscribers || 0}</div>
-          <div className="text-[11px] text-indigo-400 mt-2 font-mono">
-            {metrics.trialSubscribers || 0} currently in 14-day trial
+          <div className="text-3xl font-heading font-black text-[#181E4B]">{metrics.activeSubscribers || 0}</div>
+          <div className="text-xs text-[#DF6951] mt-2 font-bold">
+            {metrics.trialSubscribers || 0} in 14-day free trial
           </div>
         </div>
 
         {/* Total Collected Revenue */}
-        <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-5 shadow-lg shadow-black/20">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-medium text-slate-400">Total Collected Revenue</span>
-            <div className="w-8 h-8 rounded-lg bg-blue-500/10 flex items-center justify-center text-blue-400">
-              <TrendingUp className="w-4 h-4" />
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 shadow-[0_10px_30px_rgba(24,30,75,0.04)]">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#5E6282]">Total Collected</span>
+            <div className="w-10 h-10 rounded-2xl bg-[#5956E9]/10 flex items-center justify-center text-[#5956E9]">
+              <TrendingUp className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl font-bold text-white font-mono">
+          <div className="text-3xl font-heading font-black text-[#181E4B]">
             ₹{(metrics.totalCollectedRevenue || 0).toLocaleString('en-IN')}
           </div>
-          <div className="text-[11px] text-slate-500 mt-2 font-mono">
+          <div className="text-xs text-[#5E6282] mt-2 font-medium">
             Lifetime invoice settlements
           </div>
         </div>
 
         {/* Overdue / Past Due */}
-        <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-5 shadow-lg shadow-black/20">
-          <div className="flex items-center justify-between mb-3">
-            <span className="text-xs font-medium text-slate-400">Outstanding Invoices</span>
-            <div className="w-8 h-8 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400">
-              <AlertTriangle className="w-4 h-4" />
+        <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 shadow-[0_10px_30px_rgba(24,30,75,0.04)]">
+          <div className="flex items-center justify-between mb-4">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#5E6282]">Outstanding Invoices</span>
+            <div className="w-10 h-10 rounded-2xl bg-[#F1A501]/10 flex items-center justify-center text-[#F1A501]">
+              <AlertTriangle className="w-5 h-5" />
             </div>
           </div>
-          <div className="text-3xl font-bold text-amber-400 font-mono">
+          <div className="text-3xl font-heading font-black text-[#F1A501]">
             ₹{(metrics.outstandingOverdueAmount || 0).toLocaleString('en-IN')}
           </div>
-          <div className="text-[11px] text-slate-500 mt-2 font-mono">
+          <div className="text-xs text-[#5E6282] mt-2 font-medium">
             {metrics.pastDueSubscribers || 0} schools with past-due status
           </div>
         </div>
@@ -169,24 +166,24 @@ export default function RevenueDashboardPage() {
 
       {/* Subscription Plans Distribution */}
       <div>
-        <h2 className="text-sm font-semibold text-white mb-3">Platform Subscription Tiers</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <h2 className="text-base font-heading font-bold text-[#181E4B] mb-4">Platform Subscription Tiers</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
           {plans.map((p: any) => (
             <div
               key={p.id}
-              className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-5 shadow-lg relative overflow-hidden"
+              className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl p-6 shadow-[0_10px_30px_rgba(24,30,75,0.04)] hover:shadow-md transition-all relative overflow-hidden"
             >
               <div className="flex items-center justify-between">
-                <span className="font-bold text-white text-sm">{p.name}</span>
-                <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-500/10 text-indigo-300 border border-indigo-500/20">
+                <span className="font-heading font-bold text-[#181E4B] text-base">{p.name}</span>
+                <span className="text-[10px] font-bold px-3 py-1 rounded-full bg-[#FFF1DA] text-[#DF6951]">
                   {planCounts[p.name] || 0} Schools
                 </span>
               </div>
-              <div className="text-2xl font-bold text-slate-100 font-mono mt-2">
+              <div className="text-3xl font-heading font-black text-[#181E4B] mt-3">
                 ₹{p.price_monthly?.toLocaleString('en-IN')}{' '}
-                <span className="text-xs font-normal text-slate-500">/ month</span>
+                <span className="text-xs font-normal text-[#5E6282]">/ month</span>
               </div>
-              <div className="text-[11px] text-slate-400 mt-3 space-y-1">
+              <div className="text-xs text-[#5E6282] mt-4 space-y-1.5 font-medium">
                 <div>• Max {p.max_teachers} teachers per school</div>
                 <div>• Up to {p.max_scans_per_month} AI OCR scans/month</div>
               </div>
@@ -196,11 +193,11 @@ export default function RevenueDashboardPage() {
       </div>
 
       {/* Invoices Table */}
-      <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl overflow-hidden shadow-xl shadow-black/20">
-        <div className="p-4 border-b border-slate-800 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-          <h2 className="text-sm font-semibold text-white flex items-center gap-2">
-            <FileText className="w-4 h-4 text-indigo-400" />
-            Invoices & Settlements
+      <div className="bg-white border border-[rgba(24,30,75,0.08)] rounded-3xl overflow-hidden shadow-[0_10px_30px_rgba(24,30,75,0.04)]">
+        <div className="p-5 border-b border-[rgba(24,30,75,0.06)] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <h2 className="text-base font-heading font-bold text-[#181E4B] flex items-center gap-2.5">
+            <FileText className="w-5 h-5 text-[#DF6951]" />
+            Invoices &amp; Settlements
           </h2>
 
           <div className="flex items-center gap-2">
@@ -208,10 +205,10 @@ export default function RevenueDashboardPage() {
               <button
                 key={status}
                 onClick={() => setFilterStatus(status)}
-                className={`px-3 py-1.5 rounded-xl text-xs font-medium capitalize transition-colors ${
+                className={`px-3.5 py-1.5 rounded-2xl text-xs font-bold capitalize transition-all cursor-pointer ${
                   filterStatus === status
-                    ? 'bg-indigo-600/20 text-indigo-300 border border-indigo-500/30'
-                    : 'bg-slate-900 text-slate-400 hover:text-slate-200 border border-slate-800'
+                    ? 'bg-[#FFF1DA] text-[#DF6951]'
+                    : 'bg-[#FAF7F2] text-[#5E6282] hover:bg-[#FFF1DA]/50 hover:text-[#181E4B]'
                 }`}
               >
                 {status}
@@ -221,62 +218,62 @@ export default function RevenueDashboardPage() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs font-mono whitespace-nowrap">
-            <thead className="bg-slate-900/60 border-b border-slate-800 text-slate-400 text-[11px] uppercase tracking-wider font-mono">
+          <table className="w-full text-left text-xs whitespace-nowrap">
+            <thead className="bg-[#FAF7F2] border-b border-[rgba(24,30,75,0.06)] text-[#181E4B] font-heading font-bold text-[11px] uppercase tracking-wider">
               <tr>
-                <th className="px-6 py-3.5">Invoice #</th>
-                <th className="px-4 py-3.5">School</th>
-                <th className="px-4 py-3.5">Plan</th>
-                <th className="px-4 py-3.5">Amount</th>
-                <th className="px-4 py-3.5">Status</th>
-                <th className="px-4 py-3.5">Payment Method</th>
-                <th className="px-6 py-3.5 text-right">Action</th>
+                <th className="px-6 py-4">Invoice #</th>
+                <th className="px-4 py-4">School</th>
+                <th className="px-4 py-4">Plan</th>
+                <th className="px-4 py-4">Amount</th>
+                <th className="px-4 py-4">Status</th>
+                <th className="px-4 py-4">Payment Method</th>
+                <th className="px-6 py-4 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-800/80">
+            <tbody className="divide-y divide-[rgba(24,30,75,0.06)] font-medium">
               {invoices.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="px-6 py-12 text-center text-slate-500 font-sans text-xs">
+                  <td colSpan={7} className="px-6 py-12 text-center text-[#5E6282]">
                     No invoices matching status filter.
                   </td>
                 </tr>
               ) : (
                 invoices.map((inv: any) => (
-                  <tr key={inv.id} className="hover:bg-slate-900/40 transition-colors">
-                    <td className="px-6 py-4 text-slate-400 text-[11px]">
+                  <tr key={inv.id} className="hover:bg-[#FAF7F2]/60 transition-colors">
+                    <td className="px-6 py-4 text-[#5E6282] font-mono text-[11px]">
                       INV-{inv.id.substring(0, 8).toUpperCase()}
                     </td>
-                    <td className="px-4 py-4 font-sans font-medium text-slate-200">
+                    <td className="px-4 py-4 font-bold text-[#181E4B]">
                       {inv.schools?.name || 'School Tenant'}
                     </td>
-                    <td className="px-4 py-4 text-slate-300">
+                    <td className="px-4 py-4 text-[#5E6282]">
                       {inv.subscription_plans?.name || 'Standard'}
                     </td>
-                    <td className="px-4 py-4 font-bold text-slate-100">
+                    <td className="px-4 py-4 font-bold text-[#181E4B]">
                       ₹{Number(inv.amount).toLocaleString('en-IN')}
                     </td>
                     <td className="px-4 py-4">
                       <span
-                        className={`inline-flex items-center gap-1 text-[10px] px-2.5 py-0.5 rounded-full capitalize ${
+                        className={`inline-flex items-center gap-1 text-[10px] px-3 py-1 rounded-full font-bold capitalize ${
                           inv.status === 'paid'
-                            ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
+                            ? 'bg-[#00A389]/10 text-[#00A389]'
                             : inv.status === 'pending'
-                            ? 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
-                            : 'bg-red-500/10 text-red-400 border border-red-500/20'
+                            ? 'bg-[#F1A501]/10 text-[#F1A501]'
+                            : 'bg-red-500/10 text-red-500'
                         }`}
                       >
                         {inv.status}
                       </span>
                     </td>
-                    <td className="px-4 py-4 text-slate-400 capitalize">
-                      {inv.payment_gateway?.replace('_', ' ')}
+                    <td className="px-4 py-4 text-[#5E6282] capitalize">
+                      {inv.payment_gateway?.replace('_', ' ') || 'Cashfree'}
                     </td>
                     <td className="px-6 py-4 text-right">
                       {inv.status !== 'paid' && (
                         <button
                           onClick={() => handleMarkPaid(inv.id)}
                           disabled={payingId === inv.id}
-                          className="px-3 py-1 rounded-lg bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-[11px] font-sans font-medium transition-colors cursor-pointer"
+                          className="px-3.5 py-1.5 rounded-xl bg-[#00A389] hover:opacity-90 text-white text-[11px] font-bold transition-all shadow-xs cursor-pointer"
                         >
                           {payingId === inv.id ? 'Processing...' : 'Mark as Paid'}
                         </button>
