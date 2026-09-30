@@ -423,6 +423,68 @@ export default function SchoolDetailPage() {
               </div>
             </div>
 
+            {/* Generation Wallet & Usage Card */}
+            <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
+              <h2 className="text-sm font-semibold text-white flex items-center justify-between">
+                <span className="flex items-center gap-2">
+                  <CreditCard className="w-4 h-4 text-emerald-400" />
+                  Generation Wallet & Usage
+                </span>
+                <span className="text-xs px-2 py-0.5 rounded-full bg-emerald-500/10 text-emerald-400 font-mono">
+                  ₹5 / gen
+                </span>
+              </h2>
+
+              <div className="grid grid-cols-3 gap-3">
+                <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                  <span className="text-[10px] text-slate-400 block uppercase">Wallet Balance</span>
+                  <span className="text-xl font-bold font-mono text-emerald-400">
+                    ₹{Number(school.wallet_balance || 0).toFixed(2)}
+                  </span>
+                </div>
+                <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                  <span className="text-[10px] text-slate-400 block uppercase">Generations Left</span>
+                  <span className="text-xl font-bold font-mono text-white">
+                    {Math.floor(Number(school.wallet_balance || 0) / Number(school.cost_per_generation || 5))}
+                  </span>
+                </div>
+                <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800">
+                  <span className="text-[10px] text-slate-400 block uppercase">Used Papers</span>
+                  <span className="text-xl font-bold font-mono text-indigo-300">
+                    {school.generations_used || 0}
+                  </span>
+                </div>
+              </div>
+
+              <div className="flex items-center gap-2 pt-2 border-t border-slate-800">
+                <button
+                  type="button"
+                  onClick={async () => {
+                    const amount = prompt('Enter bonus credits amount to add to school wallet (₹):', '50');
+                    if (!amount || isNaN(Number(amount))) return;
+                    try {
+                      const res = await fetch(`/api/schools/${schoolId}`, {
+                        method: 'PATCH',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          wallet_balance: Number(school.wallet_balance || 0) + Number(amount),
+                        }),
+                      });
+                      if (res.ok) {
+                        toast.success(`Added ₹${amount} bonus credits!`);
+                        fetchSchool();
+                      }
+                    } catch (e) {
+                      toast.error('Failed to add credits');
+                    }
+                  }}
+                  className="w-full py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/30 text-xs font-semibold transition-colors cursor-pointer"
+                >
+                  + Grant Bonus Credits (₹)
+                </button>
+              </div>
+            </div>
+
             {/* Invoices List */}
             <div className="bg-[#0f172a]/90 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-4">
               <h2 className="text-sm font-semibold text-white flex items-center gap-2">
