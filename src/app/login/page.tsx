@@ -3,13 +3,20 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
-import { ShieldCheck, Lock, Mail, Loader2, ArrowRight } from 'lucide-react';
+import { ShieldCheck, Lock, Mail, Loader2, ArrowRight, Zap, Copy, Check } from 'lucide-react';
 
 export default function SuperAdminLoginPage() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@notegen.internal');
+  const [password, setPassword] = useState('AdminPassword123!');
   const [isLoading, setIsLoading] = useState(false);
+  const [copied, setCopied] = useState(false);
+
+  function fillDefaultCredentials() {
+    setEmail('admin@notegen.internal');
+    setPassword('AdminPassword123!');
+    toast.success('Default admin credentials filled!');
+  }
 
   async function handleLogin(e: React.FormEvent) {
     e.preventDefault();
@@ -64,9 +71,20 @@ export default function SuperAdminLoginPage() {
 
         {/* Login Card */}
         <div className="bg-white/95 backdrop-blur-xl border border-[rgba(24,30,75,0.08)] rounded-[32px] p-8 sm:p-10 shadow-[0_20px_60px_rgba(24,30,75,0.06)]">
-          <div className="mb-6">
-            <h2 className="text-xl font-heading font-bold text-[#181E4B]">Super Admin Sign In</h2>
-            <p className="text-xs text-[#5E6282] mt-1 font-medium">Restricted to authorized operators only.</p>
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h2 className="text-xl font-heading font-bold text-[#181E4B]">Super Admin Sign In</h2>
+              <p className="text-xs text-[#5E6282] mt-0.5 font-medium">Restricted platform operator access.</p>
+            </div>
+            <button
+              type="button"
+              onClick={fillDefaultCredentials}
+              className="px-3 py-1.5 rounded-full bg-[#FFF1DA] text-[#DF6951] hover:bg-[#FFE6BE] text-[11px] font-bold flex items-center gap-1.5 transition-all cursor-pointer shadow-xs"
+              title="Click to auto-fill default admin login"
+            >
+              <Zap className="w-3.5 h-3.5 fill-current" />
+              Default Login
+            </button>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
@@ -81,7 +99,6 @@ export default function SuperAdminLoginPage() {
                   placeholder="admin@notegen.internal"
                   className="w-full bg-[#FAF7F2] border border-[rgba(24,30,75,0.12)] rounded-2xl pl-10 pr-4 py-3 text-sm text-[#181E4B] placeholder:text-[#5E6282]/50 focus:outline-none focus:border-[#DF6951] focus:ring-4 focus:ring-[#DF6951]/10 transition-all font-medium"
                   required
-                  autoFocus
                 />
               </div>
             </div>
@@ -120,9 +137,35 @@ export default function SuperAdminLoginPage() {
             </button>
           </form>
 
-          <div className="mt-6 pt-5 border-t border-[rgba(24,30,75,0.06)] text-center">
+          {/* Quick Default Credentials Pill */}
+          <div className="mt-6 p-4 rounded-2xl bg-[#FAF7F2] border border-[rgba(24,30,75,0.06)] text-xs">
+            <div className="flex items-center justify-between font-bold text-[#181E4B] mb-1.5">
+              <span className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-[#DF6951]">
+                <Zap className="w-3.5 h-3.5 fill-current" /> Default Admin Credentials
+              </span>
+              <button
+                type="button"
+                onClick={() => {
+                  navigator.clipboard.writeText('admin@notegen.internal / AdminPassword123!');
+                  setCopied(true);
+                  toast.success('Credentials copied');
+                  setTimeout(() => setCopied(false), 2500);
+                }}
+                className="text-[#5E6282] hover:text-[#181E4B] flex items-center gap-1 text-[11px] font-bold cursor-pointer"
+              >
+                {copied ? <Check className="w-3 h-3 text-emerald-500" /> : <Copy className="w-3 h-3" />}
+                {copied ? 'Copied' : 'Copy'}
+              </button>
+            </div>
+            <div className="space-y-1 font-mono text-[11px] text-[#5E6282]">
+              <div>Email: <strong className="text-[#181E4B]">admin@notegen.internal</strong></div>
+              <div>Password: <strong className="text-[#181E4B]">AdminPassword123!</strong></div>
+            </div>
+          </div>
+
+          <div className="mt-5 text-center">
             <p className="text-[11px] text-[#5E6282] font-medium flex items-center justify-center gap-1.5">
-              <span>🛡️</span> Multi-Tenant Encrypted Session & Audit Trail
+              <span>🛡️</span> Multi-Tenant Encrypted Session &amp; Audit Trail
             </p>
           </div>
         </div>
